@@ -30,12 +30,7 @@ class MainActivity : AppCompatActivity() {
         val constraintSet = ConstraintSet()
         constraintSet.clone(this, R.layout.circuit_detail)
 
-        val transition = ChangeBounds()
-        transition.interpolator = AnticipateOvershootInterpolator(1.0f)
-        transition.duration = 1200
-
-        TransitionManager.beginDelayedTransition(constraint, transition)
-        constraintSet.applyTo(constraint) //here constraint is the name of view to which we are applying the constraintSet
+        applayTransition(constraintSet) //here constraint is the name of view to which we are applying the constraintSet
     }
 
     private fun hideComponents(){
@@ -44,11 +39,16 @@ class MainActivity : AppCompatActivity() {
         val constraintSet = ConstraintSet()
         constraintSet.clone(this, R.layout.circuit)
 
+        applayTransition(constraintSet)  //here constraint is the name of view to which we are applying the constraintSet
+    }
+
+    private fun applayTransition(constraintSet : ConstraintSet)
+    {
         val transition = ChangeBounds()
         transition.interpolator = AnticipateOvershootInterpolator(1.0f)
         transition.duration = 1200
 
         TransitionManager.beginDelayedTransition(constraint, transition)
-        constraintSet.applyTo(constraint)  //here constraint is the name of view to which we are applying the constraintSet
+        constraintSet.applyTo(constraint)
     }
 }
