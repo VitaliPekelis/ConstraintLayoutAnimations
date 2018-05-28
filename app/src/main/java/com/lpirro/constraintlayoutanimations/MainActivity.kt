@@ -1,11 +1,12 @@
 package com.lpirro.constraintlayoutanimations
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.constraint.ConstraintSet
 import android.support.v7.app.AppCompatActivity
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
-import android.view.animation.AnticipateOvershootInterpolator
+import android.view.animation.OvershootInterpolator
 import kotlinx.android.synthetic.main.circuit.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +23,11 @@ class MainActivity : AppCompatActivity() {
             else
                 showComponents() // if the animation is NOT shown, we animate the views
         }
+
+        description.setOnClickListener {
+            val intent = Intent(this, MainActivity2::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showComponents(){
@@ -30,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         val constraintSet = ConstraintSet()
         constraintSet.clone(this, R.layout.circuit_detail)
 
-        applayTransition(constraintSet) //here constraint is the name of view to which we are applying the constraintSet
+        applyTransition(constraintSet) //here constraint is the name of view to which we are applying the constraintSet
     }
 
     private fun hideComponents(){
@@ -39,14 +45,19 @@ class MainActivity : AppCompatActivity() {
         val constraintSet = ConstraintSet()
         constraintSet.clone(this, R.layout.circuit)
 
-        applayTransition(constraintSet)  //here constraint is the name of view to which we are applying the constraintSet
+        applyTransition(constraintSet)  //here constraint is the name of view to which we are applying the constraintSet
     }
 
-    private fun applayTransition(constraintSet : ConstraintSet)
+    private fun applyTransition(constraintSet : ConstraintSet)
     {
         val transition = ChangeBounds()
-        transition.interpolator = AnticipateOvershootInterpolator(1.0f)
+        //val transition = AutoTransition()
+        //val transition = ChangeClipBounds()/*api 21*/
+        //transition.interpolator = AnticipateOvershootInterpolator(1.0f)
+        //transition.interpolator = AnticipateInterpolator(1.2f)
+        transition.interpolator = OvershootInterpolator()
         transition.duration = 1200
+        //transition.duration = 1000
 
         TransitionManager.beginDelayedTransition(constraint, transition)
         constraintSet.applyTo(constraint)
