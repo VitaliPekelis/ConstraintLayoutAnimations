@@ -2,64 +2,45 @@ package com.lpirro.constraintlayoutanimations
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintSet
 import android.support.v7.app.AppCompatActivity
-import android.transition.ChangeBounds
-import android.transition.TransitionManager
-import android.view.animation.OvershootInterpolator
-import kotlinx.android.synthetic.main.circuit.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var show = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.circuit)
+        setContentView(R.layout.activity_main)
 
-        backgroundImage.setOnClickListener {
-            if(show)
-                hideComponents() // if the animation is shown, we hide back the views
-            else
-                showComponents() // if the animation is NOT shown, we animate the views
+        imgActivity.setOnClickListener {
+            startActivity(Intent(this, ImageActivity::class.java))
         }
 
-        description.setOnClickListener {
-            val intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
+        shopActivity.setOnClickListener {
+            startActivity(Intent(this, ShoppingActivity::class.java))
         }
-    }
 
-    private fun showComponents(){
-        show = true
+        carActivity.setOnClickListener {
+            startActivity(Intent(this, CarouselActivity::class.java))
+        }
 
-        val constraintSet = ConstraintSet()
-        constraintSet.clone(this, R.layout.circuit_detail)
+        carousel_3.setOnClickListener{
+            startActivity(Intent(this, CarouselOf3Activity::class.java))
+        }
 
-        applyTransition(constraintSet) //here constraint is the name of view to which we are applying the constraintSet
-    }
+        speakerActivity.setOnClickListener {
+            startActivity(Intent(this, SpeakerActivity::class.java))
+        }
 
-    private fun hideComponents(){
-        show = false
+        nestActivity.setOnClickListener {
+            startActivity(Intent(this, NestedActivity::class.java))
+        }
 
-        val constraintSet = ConstraintSet()
-        constraintSet.clone(this, R.layout.circuit)
+        image_java_activity.setOnClickListener{
+            startActivity(Intent(this, ImageJavaActivity::class.java))
+        }
 
-        applyTransition(constraintSet)  //here constraint is the name of view to which we are applying the constraintSet
-    }
-
-    private fun applyTransition(constraintSet : ConstraintSet)
-    {
-        val transition = ChangeBounds()
-        //val transition = AutoTransition()
-        //val transition = ChangeClipBounds()/*api 21*/
-        //transition.interpolator = AnticipateOvershootInterpolator(1.0f)
-        //transition.interpolator = AnticipateInterpolator(1.2f)
-        transition.interpolator = OvershootInterpolator()
-        transition.duration = 1200
-        //transition.duration = 1000
-
-        TransitionManager.beginDelayedTransition(constraint, transition)
-        constraintSet.applyTo(constraint)
+        circuit.setOnClickListener{
+            startActivity(Intent(this, CircuitActivity::class.java))
+        }
     }
 }
