@@ -6,11 +6,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class ImageJavaActivity extends AppCompatActivity
@@ -45,7 +45,10 @@ public class ImageJavaActivity extends AppCompatActivity
         ChangeBounds  transition    = new ChangeBounds();
         ConstraintSet constraintSet = new ConstraintSet();
 
-        if(interpolator == null) interpolator = new OvershootInterpolator();
+        //if(interpolator == null) interpolator = new OvershootInterpolator();
+        if(interpolator == null) interpolator = new FastOutSlowInInterpolator();
+
+
         transition.setInterpolator(interpolator);
         transition.setDuration(800);
 
